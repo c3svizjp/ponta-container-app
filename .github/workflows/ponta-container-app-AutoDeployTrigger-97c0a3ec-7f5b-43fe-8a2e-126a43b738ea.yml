@@ -31,19 +31,14 @@ jobs:
           tenant-id: ${{ secrets.PONTACONTAINERAPP_AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.PONTACONTAINERAPP_AZURE_SUBSCRIPTION_ID }}
 
-      - name: Build and push container image to registry
-        uses: azure/container-apps-deploy-action@v2
-        with:
-          appSourcePath: ${{ github.workspace }}
-          _dockerfilePathKey_: _dockerfilePath_
-          _targetLabelKey_: _targetLabel_
-          registryUrl: https://index.docker.io/v1/
-          registryUsername: ${{ secrets.PONTACONTAINERAPP_REGISTRY_USERNAME }}
-          registryPassword: ${{ secrets.PONTACONTAINERAPP_REGISTRY_PASSWORD }}
-          containerAppName: ponta-container-app
-          resourceGroup: ponta-rg
-          imageToBuild: imageToBuild: m3brat8h/ponta-container-app:${{ github.sha }}
-          _buildArgumentsKey_: |
-            _buildArgumentsValues_
+- name: Build and push container image to Docker Hub
+  uses: azure/container-apps-deploy-action@v2
+  with:
+    appSourcePath: ${{ github.workspace }}
+    containerAppName: ponta-container-app
+    resourceGroup: ponta-rg
+    imageToBuild: m3brat8h/ponta-container-app:${{ github.sha }}
+    registryUsername: ${{ secrets.PONTACONTAINERAPP_REGISTRY_USERNAME }}
+    registryPassword: ${{ secrets.PONTACONTAINERAPP_REGISTRY_PASSWORD }}
 
 
