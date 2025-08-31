@@ -6,6 +6,10 @@ app.get('/', (req, res) => {
   res.send('ぽんた式診察室へようこそ🍮');
 });
 
+app.get('/health', (req, res) => {
+  res.status(200).send('OK');
+});
+
 app.listen(port, () => {
   console.log(`診察室がポート${port}で開業中！`);
 });
